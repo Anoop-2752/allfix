@@ -1,0 +1,151 @@
+import { lazy, Suspense } from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
+import { ChevronRight, Construction, getIcon } from '../lib/icons'
+import { getColors } from '../lib/colors'
+import { getToolBySlug, getCategoryBySlug } from '../data/tools'
+import { usePageTitle } from '../hooks/usePageTitle'
+
+// Lazy-loaded tool components — each becomes its own JS chunk
+const JsonFormatter     = lazy(() => import('../tools/developer/JsonFormatter'))
+const Base64            = lazy(() => import('../tools/developer/Base64'))
+const JwtDecoder        = lazy(() => import('../tools/developer/JwtDecoder'))
+const UuidGenerator     = lazy(() => import('../tools/developer/UuidGenerator'))
+const TimestampConverter= lazy(() => import('../tools/developer/TimestampConverter'))
+const UrlEncoder        = lazy(() => import('../tools/developer/UrlEncoder'))
+const WordCounter       = lazy(() => import('../tools/text/WordCounter'))
+const LoremIpsum        = lazy(() => import('../tools/text/LoremIpsum'))
+const MarkdownPreviewer = lazy(() => import('../tools/text/MarkdownPreviewer'))
+const CaseConverter     = lazy(() => import('../tools/text/CaseConverter'))
+const DiffChecker       = lazy(() => import('../tools/text/DiffChecker'))
+const FillerWordRemover = lazy(() => import('../tools/text/FillerWordRemover'))
+
+const toolComponents = {
+  'json-formatter':     JsonFormatter,
+  'base64':             Base64,
+  'jwt-decoder':        JwtDecoder,
+  'uuid-generator':     UuidGenerator,
+  'timestamp-converter':TimestampConverter,
+  'url-encoder':        UrlEncoder,
+  'word-counter':       WordCounter,
+  'lorem-ipsum':        LoremIpsum,
+  'markdown-previewer': MarkdownPreviewer,
+  'case-converter':     CaseConverter,
+  'diff-checker':       DiffChecker,
+  'filler-word-remover':FillerWordRemover,
+}
+
+function ToolIcon({ name, className }) {
+  const Icon = getIcon(name)
+  if (!Icon) return null
+  return <Icon className={className} size={18} />
+}
+
+function NotFound({ onBack }) {
+  return (
+    <div className="mx-auto max-w-6xl px-6 py-24 text-center">
+      <p className="mb-2 text-4xl">🔍</p>
+      <h1 className="mb-3 text-2xl font-semibold text-white">Tool not found</h1>
+      <p className="mb-8 text-sm text-zinc-500">
+        The tool you're looking for doesn't exist or may have moved.
+      </p>
+      <button
+        onClick={onBack}
+        className="inline-flex items-center gap-2 rounded-lg border border-[#2a2a2a] bg-[#1a1a1a] px-4 py-2 text-sm text-zinc-300 transition-colors hover:border-[#3a3a3a] hover:text-white"
+      >
+        ← Back
+      </button>
+    </div>
+  )
+}
+
+function ComingSoon({ toolName }) {
+  return (
+    <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-[#2a2a2a] bg-[#141414] py-20 text-center">
+      <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-zinc-800">
+        <Construction size={20} className="text-zinc-500" />
+      </div>
+      <h3 className="mb-2 text-base font-semibold text-white">{toolName} — Coming Soon</h3>
+      <p className="text-sm text-zinc-600">This tool is being built. Check back soon.</p>
+    </div>
+  )
+}
+
+function ToolSkeleton() {
+  return (
+    <div className="flex flex-col gap-4 animate-pulse">
+      <div className="h-40 rounded-xl bg-[#1a1a1a]" />
+      <div className="h-8 w-48 rounded-lg bg-[#1a1a1a]" />
+    </div>
+  )
+}
+
+function AdSlot() {
+  return (
+    <div className="mt-10 flex h-[90px] w-full items-center justify-center rounded-lg border border-dashed border-[#1e1e1e]">
+      <span className="text-xs uppercase tracking-widest text-zinc-800">Advertisement</span>
+    </div>
+  )
+}
+
+export default function ToolPage() {
+  const { category: categorySlug, tool: toolSlug } = useParams()
+  const navigate = useNavigate()
+
+  const tool     = getToolBySlug(categorySlug, toolSlug)
+  const category = getCategoryBySlug(categorySlug)
+
+  usePageTitle(tool?.name)
+
+  if (!tool || !category) {
+    return <NotFound onBack={() => navigate(categorySlug ? `/${categorySlug}` : '/')} />
+  }
+
+  const colors        = getColors(category.color)
+  const ToolComponent = toolComponents[tool.slug]
+
+  return (
+    <div className="mx-auto max-w-6xl px-6 pb-24 pt-8">
+      {/* Breadcrumb */}
+      <nav className="mb-6 flex items-center gap-1.5 text-xs text-zinc-600">
+        <button onClick={() => navigate('/')} className="transition-colors hover:text-zinc-300">
+          Home
+        </button>
+        <ChevronRight size={11} className="text-zinc-700" />
+        <button onClick={() => navigate(`/${category.slug}`)} className="transition-colors hover:text-zinc-300">
+          {category.name}
+        </button>
+        <ChevronRight size={11} className="text-zinc-700" />
+        <span className="text-zinc-400">{tool.name}</span>
+      </nav>
+
+      {/* Tool header — compact inline layout */}
+      <header className="mb-8">
+        <div className="mb-3 flex items-center gap-3">
+          <div className={`flex h-9 w-9 items-center justify-center rounded-xl ${colors.iconBg}`}>
+            <ToolIcon name={tool.icon} className={colors.iconColor} />
+          </div>
+          <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${colors.badge}`}>
+            {category.name}
+          </span>
+        </div>
+        <h1 className="mb-1.5 text-3xl font-bold tracking-tight text-white">{tool.name}</h1>
+        <p className="text-sm text-zinc-500">{tool.description}</p>
+      </header>
+
+      {/* Divider */}
+      <div className="mb-7 h-px bg-[#1a1a1a]" />
+
+      {/* Tool content */}
+      {ToolComponent ? (
+        <Suspense fallback={<ToolSkeleton />}>
+          <ToolComponent />
+        </Suspense>
+      ) : (
+        <ComingSoon toolName={tool.name} />
+      )}
+
+      {/* Ad slot */}
+      <AdSlot />
+    </div>
+  )
+}
