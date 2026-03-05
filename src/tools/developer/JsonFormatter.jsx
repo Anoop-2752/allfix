@@ -2,6 +2,11 @@ import { useState, useCallback } from 'react'
 
 const INDENT = 2
 
+// Yield to browser before heavy sync work so the disabled state renders first
+function defer(fn) {
+  return new Promise((resolve) => setTimeout(() => resolve(fn()), 0))
+}
+
 const SAMPLE_JSON = JSON.stringify(
   {
     name: 'John Doe',
@@ -21,11 +26,12 @@ function lineCount(str) {
 }
 
 export default function JsonFormatter() {
-  const [input, setInput]      = useState('')
-  const [output, setOutput]    = useState('')
-  const [status, setStatus]    = useState(null) // null | 'valid' | 'error'
+  const [input, setInput]       = useState('')
+  const [output, setOutput]     = useState('')
+  const [status, setStatus]     = useState(null) // null | 'valid' | 'error'
   const [errorMsg, setErrorMsg] = useState('')
-  const [copied, setCopied]    = useState(false)
+  const [copied, setCopied]     = useState(false)
+  const [isProcessing, setIsProcessing] = useState(false)
 
   // ── helpers ────────────────────────────────────────────────────────────────
 
@@ -56,33 +62,47 @@ export default function JsonFormatter() {
 
   // ── actions ────────────────────────────────────────────────────────────────
 
-  function handleFormat() {
-    const parsed = parseInput()
-    if (parsed === null) return
-    setOutput(JSON.stringify(parsed, null, INDENT))
-    setStatus('valid')
-    setErrorMsg('')
+  async function handleFormat() {
+    setIsProcessing(true)
+    await defer(() => {
+      const parsed = parseInput()
+      if (parsed !== null) {
+        setOutput(JSON.stringify(parsed, null, INDENT))
+        setStatus('valid')
+        setErrorMsg('')
+      }
+    })
+    setIsProcessing(false)
   }
 
-  function handleMinify() {
-    const parsed = parseInput()
-    if (parsed === null) return
-    setOutput(JSON.stringify(parsed))
-    setStatus('valid')
-    setErrorMsg('')
+  async function handleMinify() {
+    setIsProcessing(true)
+    await defer(() => {
+      const parsed = parseInput()
+      if (parsed !== null) {
+        setOutput(JSON.stringify(parsed))
+        setStatus('valid')
+        setErrorMsg('')
+      }
+    })
+    setIsProcessing(false)
   }
 
-  function handleValidate() {
-    const trimmed = input.trim()
-    if (!trimmed) { setError('Input is empty.'); return }
-    try {
-      JSON.parse(trimmed)
-      setStatus('valid')
-      setErrorMsg('')
-      setOutput(trimmed)
-    } catch (e) {
-      setError(e.message)
-    }
+  async function handleValidate() {
+    setIsProcessing(true)
+    await defer(() => {
+      const trimmed = input.trim()
+      if (!trimmed) { setError('Input is empty.'); return }
+      try {
+        JSON.parse(trimmed)
+        setStatus('valid')
+        setErrorMsg('')
+        setOutput(trimmed)
+      } catch (e) {
+        setError(e.message)
+      }
+    })
+    setIsProcessing(false)
   }
 
   function handleClear() {
@@ -180,10 +200,11 @@ export default function JsonFormatter() {
         <div className="flex flex-wrap gap-2">
           <button
             onClick={handleFormat}
+            disabled={isProcessing}
             title="Format (Ctrl+Enter)"
-            className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-indigo-500 active:bg-indigo-700"
+            className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-indigo-500 active:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-50"
           >
-            Format
+            {isProcessing ? 'Processing…' : 'Format'}
           </button>
 
           {[
@@ -193,7 +214,8 @@ export default function JsonFormatter() {
             <button
               key={label}
               onClick={action}
-              className="rounded-lg border border-[#2a2a2a] bg-[#1a1a1a] px-4 py-2 text-sm font-medium text-zinc-300 transition-colors hover:border-[#3a3a3a] hover:text-white"
+              disabled={isProcessing}
+              className="rounded-lg border border-[#2a2a2a] bg-[#1a1a1a] px-4 py-2 text-sm font-medium text-zinc-300 transition-colors hover:border-[#3a3a3a] hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
             >
               {label}
             </button>
