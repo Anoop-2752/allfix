@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { useNavigate } from 'react-router-dom'
 import { categories, allTools, getCategoryBySlug } from '../data/tools'
-import { Search } from '../lib/icons'
+import { Search, Github } from '../lib/icons'
 import { usePageTitle } from '../hooks/usePageTitle'
 import SEO from '../components/SEO'
 import CategoryCard from '../components/CategoryCard'
@@ -21,23 +21,34 @@ const STRUCTURED_DATA = JSON.stringify({
   },
 })
 
-const POPULAR_TOOLS = [
-  { id: 'emi-calculator',        category: 'finance', name: 'EMI Calculator',        desc: 'Loan EMI with amortization table' },
-  { id: 'gst-calculator',        category: 'finance', name: 'GST Calculator',         desc: 'Add/remove GST with CGST/SGST split' },
-  { id: 'income-tax-calculator', category: 'finance', name: 'Income Tax Calculator',  desc: 'Old vs New regime comparison' },
-  { id: 'salary-slip-generator', category: 'hr',      name: 'Salary Slip Generator',  desc: 'Professional salary slip instantly' },
-  { id: 'pdf-merger',            category: 'pdf',     name: 'PDF Merger',             desc: 'Combine PDFs in your browser' },
-  { id: 'ats-keyword-checker',   category: 'career',  name: 'ATS Keyword Checker',    desc: 'Match resume keywords to job description' },
+const POPULAR_IDS = [
+  'json-formatter',
+  'base64',
+  'emi-calculator',
+  'gst-calculator',
+  'salary-slip-generator',
+  'ats-keyword-checker',
+  'pdf-merger',
+  'word-counter',
+]
+
+const HOT_COMMANDS = [
+  { label: 'JSON Formatter', category: 'developer', slug: 'json-formatter' },
+  { label: 'Base64',         category: 'developer', slug: 'base64' },
+  { label: 'EMI Calculator', category: 'finance',   slug: 'emi-calculator' },
+  { label: 'Salary Slip',    category: 'hr',        slug: 'salary-slip-generator' },
+  { label: 'ATS Checker',    category: 'career',    slug: 'ats-keyword-checker' },
 ]
 
 export default function HomePage() {
-  const [query, setQuery] = useState('')
+  const [query, setQuery]       = useState('')
+  const [activeTab, setActiveTab] = useState('all')
   const navigate = useNavigate()
   usePageTitle(null)
 
-  const trimmed = query.trim().toLowerCase()
+  const trimmed    = query.trim().toLowerCase()
   const isSearching = trimmed.length > 0
-  const results = isSearching
+  const results    = isSearching
     ? allTools.filter(
         (t) =>
           t.name.toLowerCase().includes(trimmed) ||
@@ -45,11 +56,14 @@ export default function HomePage() {
       )
     : []
 
+  const popularTools   = POPULAR_IDS.map((id) => allTools.find((t) => t.id === id)).filter(Boolean)
+  const visibleCategories = activeTab === 'all' ? categories : categories.filter((c) => c.slug === activeTab)
+
   return (
     <div className="mx-auto max-w-6xl px-6 pb-24">
       <SEO
         title="Free Online Tools — Developer, HR, Finance, PDF & More"
-        description="AllFix — 37+ free online tools for developers, HR managers, job seekers, and finance. EMI calculator, GST, salary slip, PDF merger, ATS checker and more. No signup, runs in your browser."
+        description={`AllFix — ${allTools.length}+ free online tools for developers, HR managers, job seekers, and finance. EMI calculator, GST, salary slip, PDF merger, ATS checker and more. No signup, runs in your browser.`}
         keywords="free online tools, EMI calculator, GST calculator, salary slip generator, PDF merger, ATS keyword checker, income tax calculator, HR tools, developer tools"
         path="/"
       />
@@ -57,69 +71,72 @@ export default function HomePage() {
         <script type="application/ld+json">{STRUCTURED_DATA}</script>
       </Helmet>
 
-      {/* Hero */}
+      {/* ── Hero ─────────────────────────────────────────────────────────────── */}
       <section className="pb-10 pt-14 text-center">
+        {/* Ambient glow */}
         <div
           aria-hidden
-          className="pointer-events-none absolute left-1/2 top-0 -z-10 h-[360px] w-[600px] -translate-x-1/2 rounded-full bg-indigo-600/5 blur-3xl"
+          className="pointer-events-none absolute left-1/2 top-0 -z-10 h-[400px] w-[700px] -translate-x-1/2 rounded-full bg-green-500/5 blur-3xl"
         />
 
-        <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-indigo-500/20 bg-indigo-500/5 px-3 py-1">
-          <span className="h-1.5 w-1.5 rounded-full bg-indigo-400" />
-          <span className="text-xs font-medium text-indigo-300">Free &amp; open — no sign-up needed</span>
+        {/* Badge */}
+        <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-green-500/20 bg-green-500/5 px-3 py-1">
+          <span className="h-1.5 w-1.5 rounded-full bg-green-400" />
+          <span className="text-xs font-medium text-green-300">
+            {allTools.length}+ FREE BROWSER TOOLS — NO SIGNUP
+          </span>
         </div>
 
-        <h1 className="mt-4 text-5xl font-bold leading-tight tracking-tight text-white sm:text-6xl">
+        {/* Headline */}
+        <h1 className="mt-2 text-5xl font-bold leading-tight tracking-tight text-white sm:text-6xl">
           Every Tool You Need,{' '}
-          <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
-            One Place
-          </span>
+          <em className="not-italic text-green-400">One Place.</em>
         </h1>
 
         <p className="mx-auto mt-4 max-w-xl text-base text-zinc-400 sm:text-lg">
-          Free tools for developers, HR teams, job seekers, and finance — all running in your browser. No signup, no ads, no cost.
+          Free tools for developers, HR teams, job seekers, and finance — all running in your browser. No account, no ads, no cost.
         </p>
 
-        {/* Category pills */}
-        <div className="mt-5 flex flex-wrap justify-center gap-2">
-          {categories.map((cat) => (
-            <button
-              key={cat.id}
-              onClick={() => navigate(`/${cat.slug}`)}
-              className="rounded-full border border-[#2a2a2a] bg-[#141414] px-3 py-1 text-xs text-zinc-500 transition-colors hover:border-[#3a3a3a] hover:text-zinc-300"
-            >
-              {cat.name}
-            </button>
-          ))}
-        </div>
-
         {/* Search bar */}
-        <div className="mx-auto mt-7 max-w-md">
-          <div className="relative">
-            <Search
-              size={14}
-              className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-600"
-            />
+        <div className="mx-auto mt-7 max-w-lg">
+          <div className="relative flex items-center gap-2 rounded-xl border border-[#2a2a2a] bg-[#111] px-3 py-2.5 transition-all focus-within:border-green-500/40 focus-within:ring-1 focus-within:ring-green-500/20">
+            <Search size={14} className="shrink-0 text-zinc-600" />
             <input
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search tools… JSON, Base64, UUID…"
-              className="w-full rounded-xl border border-[#2a2a2a] bg-[#141414] py-2.5 pl-9 pr-9 text-sm text-zinc-200 placeholder:text-zinc-600 focus:border-indigo-500/50 focus:outline-none focus:ring-1 focus:ring-indigo-500/30"
+              placeholder="Search tools… JSON, Base64, UUID, EMI…"
+              className="flex-1 bg-transparent text-sm text-zinc-200 placeholder:text-zinc-600 focus:outline-none"
             />
             {query && (
               <button
                 onClick={() => setQuery('')}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-zinc-600 hover:text-zinc-400"
+                className="text-xs text-zinc-600 hover:text-zinc-400"
               >
                 ✕
               </button>
             )}
           </div>
         </div>
+
+        {/* Hot commands */}
+        {!isSearching && (
+          <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
+            <span className="text-xs text-zinc-700">Try:</span>
+            {HOT_COMMANDS.map((cmd) => (
+              <button
+                key={cmd.slug}
+                onClick={() => navigate(`/${cmd.category}/${cmd.slug}`)}
+                className="rounded-full border border-[#2a2a2a] bg-[#141414] px-3 py-1 text-xs text-zinc-500 transition-colors hover:border-green-500/30 hover:text-green-400"
+              >
+                {cmd.label}
+              </button>
+            ))}
+          </div>
+        )}
       </section>
 
-      {/* Search results */}
+      {/* ── Search results ───────────────────────────────────────────────────── */}
       {isSearching ? (
         <section>
           <div className="mb-5 flex items-center gap-3">
@@ -150,37 +167,80 @@ export default function HomePage() {
         </section>
       ) : (
         <>
-          {/* Popular tools */}
-          <section className="mb-10">
+          {/* ── Popular Tools ────────────────────────────────────────────── */}
+          <section className="mb-12">
             <div className="mb-5 flex items-center gap-3">
               <h2 className="text-xs font-medium uppercase tracking-widest text-zinc-600">Popular Tools</h2>
               <div className="h-px flex-1 bg-[#1e1e1e]" />
             </div>
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
-              {POPULAR_TOOLS.map((tool) => {
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+              {popularTools.map((tool) => {
                 const cat = getCategoryBySlug(tool.category)
                 return (
-                  <ToolCard
-                    key={tool.id}
-                    tool={{ ...tool, icon: allTools.find((t) => t.id === tool.id)?.icon }}
-                    categoryColor={cat?.color}
-                  />
+                  <ToolCard key={tool.id} tool={tool} categoryColor={cat?.color} />
                 )
               })}
             </div>
           </section>
 
-          {/* Categories */}
+          {/* ── Browse Labs ──────────────────────────────────────────────── */}
           <section>
             <div className="mb-5 flex items-center gap-3">
-              <h2 className="text-xs font-medium uppercase tracking-widest text-zinc-600">All Categories</h2>
+              <h2 className="text-xs font-medium uppercase tracking-widest text-zinc-600">Browse Labs</h2>
               <div className="h-px flex-1 bg-[#1e1e1e]" />
             </div>
-            <div className="grid grid-cols-2 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {categories.map((category) => (
+
+            {/* Category tabs */}
+            <div className="mb-5 flex items-center gap-1 overflow-x-auto pb-1">
+              <button
+                onClick={() => setActiveTab('all')}
+                className={[
+                  'shrink-0 rounded-full px-3 py-1.5 text-xs font-medium transition-colors',
+                  activeTab === 'all'
+                    ? 'bg-green-500/15 text-green-400'
+                    : 'text-zinc-600 hover:text-zinc-300',
+                ].join(' ')}
+              >
+                All
+              </button>
+              {categories.map((cat) => (
+                <button
+                  key={cat.id}
+                  onClick={() => setActiveTab(activeTab === cat.slug ? 'all' : cat.slug)}
+                  className={[
+                    'shrink-0 rounded-full px-3 py-1.5 text-xs font-medium transition-colors',
+                    activeTab === cat.slug
+                      ? 'bg-green-500/15 text-green-400'
+                      : 'text-zinc-600 hover:text-zinc-300',
+                  ].join(' ')}
+                >
+                  {cat.name}
+                </button>
+              ))}
+            </div>
+
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {visibleCategories.map((category) => (
                 <CategoryCard key={category.id} category={category} />
               ))}
             </div>
+          </section>
+
+          {/* ── CTA ─────────────────────────────────────────────────────── */}
+          <section className="mt-16 rounded-2xl border border-[#1e1e1e] bg-[#0d0d0d] px-6 py-10 text-center">
+            <h2 className="mb-2 text-xl font-semibold text-white">Missing a tool?</h2>
+            <p className="mb-5 text-sm text-zinc-500">
+              Got a suggestion? Open an issue on GitHub and we'll build it.
+            </p>
+            <a
+              href="https://github.com/anoopkumar-dev/allfix/issues"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-lg border border-[#2a2a2a] bg-[#141414] px-4 py-2 text-sm font-medium text-zinc-300 transition-colors hover:border-green-500/40 hover:text-green-400"
+            >
+              <Github size={14} />
+              Open an issue
+            </a>
           </section>
         </>
       )}

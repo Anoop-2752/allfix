@@ -12,13 +12,14 @@ function CategoryIcon({ name, className }) {
 export default function CategoryCard({ category }) {
   const navigate = useNavigate()
   const colors = getColors(category.color)
+  const previewTools = category.tools.slice(0, 4)
 
   return (
     <button
       onClick={() => navigate(`/${category.slug}`)}
       className={[
-        'group w-full text-left rounded-2xl bg-[#141414] p-5',
-        'border border-[#252525] border-t-[#2e2e2e]',
+        'group w-full text-left rounded-2xl bg-[#111] p-5',
+        'border border-[#1e1e1e] border-t-[#282828]',
         'transition-all duration-300 cursor-pointer',
         colors.hoverBorder,
         colors.hoverGlow,
@@ -38,14 +39,31 @@ export default function CategoryCard({ category }) {
       </div>
 
       {/* Name */}
-      <h2 className="mb-1.5 text-base font-semibold text-white">{category.name}</h2>
+      <h2 className="mb-1 text-base font-semibold text-white">{category.name}</h2>
 
-      {/* Description — clamped to 2 lines */}
-      <p className="mb-5 line-clamp-2 text-sm leading-relaxed text-zinc-500">{category.description}</p>
+      {/* Description */}
+      <p className="mb-4 line-clamp-2 text-sm leading-relaxed text-zinc-500">{category.description}</p>
 
-      {/* Footer */}
-      <div className="flex items-center gap-1 text-xs font-medium text-zinc-600 transition-colors duration-300 group-hover:text-zinc-300">
-        <span>Explore tools</span>
+      {/* Tool name pills */}
+      <div className="mb-4 flex flex-wrap gap-1.5">
+        {previewTools.map((tool) => (
+          <span
+            key={tool.id}
+            className="rounded-md border border-[#2a2a2a] bg-[#0d0d0d] px-2 py-0.5 text-xs text-zinc-500"
+          >
+            {tool.name}
+          </span>
+        ))}
+        {category.tools.length > 4 && (
+          <span className="rounded-md border border-[#2a2a2a] bg-[#0d0d0d] px-2 py-0.5 text-xs text-zinc-600">
+            +{category.tools.length - 4} more
+          </span>
+        )}
+      </div>
+
+      {/* Footer CTA */}
+      <div className="flex items-center gap-1 text-xs font-medium text-zinc-600 transition-colors duration-300 group-hover:text-green-400">
+        <span>Open Laboratory</span>
         <ArrowRight size={12} className="transition-transform duration-300 group-hover:translate-x-0.5" />
       </div>
     </button>

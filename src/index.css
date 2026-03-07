@@ -2,7 +2,7 @@
 
 /* ── Base ─────────────────────────────────────────────────────────────────── */
 body {
-  background-color: #0f0f0f;
+  background-color: #0a0a0a;
   /* Subtle dot grid */
   background-image: radial-gradient(circle, #ffffff07 1px, transparent 1px);
   background-size: 28px 28px;
@@ -15,7 +15,7 @@ body {
   top: 0;
   z-index: 9999;
   padding: 0.5rem 1rem;
-  background: #6366f1;
+  background: #22c55e;
   color: #fff;
   font-size: 0.875rem;
   font-weight: 600;
@@ -49,8 +49,8 @@ body {
 
 .md-preview p  { margin-bottom: 1em; }
 
-.md-preview a  { color: #818cf8; text-decoration: underline; }
-.md-preview a:hover { color: #a5b4fc; }
+.md-preview a  { color: #4ade80; text-decoration: underline; }
+.md-preview a:hover { color: #86efac; }
 
 .md-preview strong { color: #fff; font-weight: 600; }
 .md-preview em     { font-style: italic; }
@@ -70,7 +70,7 @@ body {
 }
 
 .md-preview blockquote {
-  border-left: 3px solid #6366f1; margin: 0 0 1em 0;
+  border-left: 3px solid #22c55e; margin: 0 0 1em 0;
   padding: 0.5em 0 0.5em 1em; color: #a1a1aa; background: #141414;
   border-radius: 0 8px 8px 0;
 }
