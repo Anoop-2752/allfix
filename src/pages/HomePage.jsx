@@ -11,12 +11,12 @@ import ToolCard from '../components/ToolCard'
 const STRUCTURED_DATA = JSON.stringify({
   '@context': 'https://schema.org',
   '@type': 'WebSite',
-  name: 'AllFix',
-  url: 'https://allfix.dev',
+  name: 'QuickKit',
+  url: 'https://quickkit.dev',
   description: 'Free online tools for developers, HR professionals, finance, career, and more.',
   potentialAction: {
     '@type': 'SearchAction',
-    target: 'https://allfix.dev/?q={search_term_string}',
+    target: 'https://quickkit.dev/?q={search_term_string}',
     'query-input': 'required name=search_term_string',
   },
 })
@@ -63,7 +63,7 @@ export default function HomePage() {
     <div className="mx-auto max-w-6xl px-6 pb-24">
       <SEO
         title="Free Online Tools — Developer, HR, Finance, PDF & More"
-        description={`AllFix — ${allTools.length}+ free online tools for developers, HR managers, job seekers, and finance. EMI calculator, GST, salary slip, PDF merger, ATS checker and more. No signup, runs in your browser.`}
+        description={`QuickKit — ${allTools.length}+ free online tools for developers, HR managers, job seekers, and finance. EMI calculator, GST, salary slip, PDF merger, ATS checker and more. No signup, runs in your browser.`}
         keywords="free online tools, EMI calculator, GST calculator, salary slip generator, PDF merger, ATS keyword checker, income tax calculator, HR tools, developer tools"
         path="/"
       />

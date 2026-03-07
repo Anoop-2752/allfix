@@ -5,7 +5,7 @@ import SEO from '../components/SEO'
 function Section({ title, children }) {
   return (
     <section className="mb-10">
-      <h2 className="mb-3 text-lg font-semibold text-indigo-400">{title}</h2>
+      <h2 className="mb-3 text-lg font-semibold text-green-400">{title}</h2>
       <div className="space-y-3 text-sm leading-relaxed text-zinc-400">{children}</div>
     </section>
   )
@@ -19,7 +19,7 @@ export default function CookiePolicy() {
     <div className="mx-auto max-w-3xl px-6 pb-24 pt-12">
       <SEO
         title="Cookie Policy"
-        description="AllFix cookie policy — how we use cookies for ads and analytics. Learn how to manage and opt out of Google AdSense cookies."
+        description="QuickKit cookie policy — how we use cookies for ads and analytics. Learn how to manage and opt out of Google AdSense cookies."
         path="/cookies"
       />
       <button
@@ -46,7 +46,7 @@ export default function CookiePolicy() {
 
       <Section title="How We Use Cookies">
         <p>
-          AllFix itself does not set any first-party cookies for tracking or storing personal
+          QuickKit itself does not set any first-party cookies for tracking or storing personal
           data. Our tools run entirely in your browser and use{' '}
           <code className="rounded bg-[#1a1a1a] px-1.5 py-0.5 font-mono text-xs text-zinc-300">
             localStorage
@@ -118,7 +118,7 @@ export default function CookiePolicy() {
               href="https://www.google.com/settings/ads"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-indigo-400 underline hover:text-indigo-300"
+              className="text-green-400 underline hover:text-green-300"
             >
               google.com/settings/ads
             </a>
@@ -131,7 +131,7 @@ export default function CookiePolicy() {
               href="https://optout.networkadvertising.org"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-indigo-400 underline hover:text-indigo-300"
+              className="text-green-400 underline hover:text-green-300"
             >
               Network Advertising Initiative
             </a>
@@ -143,7 +143,7 @@ export default function CookiePolicy() {
       <Section title="Changes to This Policy">
         <p>
           We may update this Cookie Policy from time to time. Changes will be reflected by
-          the "Last updated" date above. Continued use of AllFix after changes constitutes
+          the "Last updated" date above. Continued use of QuickKit after changes constitutes
           acceptance of the updated policy.
         </p>
       </Section>
@@ -152,10 +152,10 @@ export default function CookiePolicy() {
         <p>
           Questions about our cookie usage? Contact us at{' '}
           <a
-            href="mailto:contact@allfix.dev"
-            className="text-indigo-400 underline hover:text-indigo-300"
+            href="mailto:helloquickkit@gmail.com"
+            className="text-green-400 underline hover:text-green-300"
           >
-            contact@allfix.dev
+            helloquickkit@gmail.com
           </a>
           .
         </p>

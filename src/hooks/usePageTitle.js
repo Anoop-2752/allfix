@@ -1,10 +1,10 @@
 import { useEffect } from 'react'
 
-const BASE = 'AllFix — Developer Tools & Utilities'
+const BASE = 'QuickKit — Developer Tools & Utilities'
 
 export function usePageTitle(title) {
   useEffect(() => {
-    document.title = title ? `${title} — AllFix` : BASE
+    document.title = title ? `${title} — QuickKit` : BASE
     return () => { document.title = BASE }
   }, [title])
 }

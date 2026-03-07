@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-const STORAGE_KEY = 'allfix_job_tracker'
+const STORAGE_KEY = 'quickkit_job_tracker'
 
 const STATUSES = [
   { value: 'applied',    label: 'Applied',    color: 'text-blue-400',    bg: 'bg-blue-500/10',    border: 'border-blue-500/20' },

@@ -192,7 +192,7 @@ export default function JsonFormatter() {
           onKeyDown={handleKeyDown}
           onPaste={handlePaste}
           spellCheck={false}
-          placeholder={'Paste your JSON here…\n\n{\n  "name": "AllFix",\n  "type": "tool"\n}'}
+          placeholder={'Paste your JSON here…\n\n{\n  "name": "QuickKit",\n  "type": "tool"\n}'}
           className="h-80 w-full resize-none rounded-xl border border-[#2a2a2a] bg-[#141414] p-4 font-mono text-sm text-zinc-200 placeholder:text-zinc-700 focus:border-indigo-500/50 focus:outline-none focus:ring-1 focus:ring-indigo-500/30 lg:h-96"
         />
 

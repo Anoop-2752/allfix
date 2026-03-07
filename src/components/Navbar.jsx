@@ -25,11 +25,13 @@ export default function Navbar() {
         <div className="mx-auto max-w-6xl px-6">
           <div className="flex items-center justify-between py-3.5">
             {/* Logo */}
-            <Link to="/" className="group flex items-center gap-2.5">
-              <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-green-500/10 ring-1 ring-green-500/30 transition-all group-hover:bg-green-500/20 group-hover:ring-green-500/50">
-                <Wrench size={13} className="text-green-400" />
+            <Link to="/" className="group flex items-center gap-3">
+              <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-green-500/10 ring-1 ring-green-500/30 transition-all group-hover:bg-green-500/20 group-hover:ring-green-500/50">
+                <Wrench size={15} className="text-green-400" />
               </div>
-              <span className="text-sm font-bold tracking-tight text-white">AllFix</span>
+              <span className="text-xl font-black tracking-tight text-white">
+                Quick<span className="text-green-400">Kit</span>
+              </span>
             </Link>
 
             {/* Right side */}
