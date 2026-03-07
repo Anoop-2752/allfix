@@ -19,6 +19,42 @@ export const colorMap = {
     hoverGlowSm: 'hover:shadow-[0_0_30px_rgba(168,85,247,0.07)]',
     hoverIcon: 'group-hover:text-purple-300',
   },
+  green: {
+    iconBg: 'bg-emerald-500/10',
+    iconColor: 'text-emerald-400',
+    badge: 'bg-emerald-500/10 text-emerald-400',
+    hoverBorder: 'hover:border-emerald-500/40',
+    hoverGlow: 'hover:shadow-[0_0_40px_rgba(16,185,129,0.07)]',
+    hoverGlowSm: 'hover:shadow-[0_0_30px_rgba(16,185,129,0.07)]',
+    hoverIcon: 'group-hover:text-emerald-300',
+  },
+  orange: {
+    iconBg: 'bg-orange-500/10',
+    iconColor: 'text-orange-400',
+    badge: 'bg-orange-500/10 text-orange-400',
+    hoverBorder: 'hover:border-orange-500/40',
+    hoverGlow: 'hover:shadow-[0_0_40px_rgba(249,115,22,0.07)]',
+    hoverGlowSm: 'hover:shadow-[0_0_30px_rgba(249,115,22,0.07)]',
+    hoverIcon: 'group-hover:text-orange-300',
+  },
+  rose: {
+    iconBg: 'bg-rose-500/10',
+    iconColor: 'text-rose-400',
+    badge: 'bg-rose-500/10 text-rose-400',
+    hoverBorder: 'hover:border-rose-500/40',
+    hoverGlow: 'hover:shadow-[0_0_40px_rgba(244,63,94,0.07)]',
+    hoverGlowSm: 'hover:shadow-[0_0_30px_rgba(244,63,94,0.07)]',
+    hoverIcon: 'group-hover:text-rose-300',
+  },
+  amber: {
+    iconBg: 'bg-amber-500/10',
+    iconColor: 'text-amber-400',
+    badge: 'bg-amber-500/10 text-amber-400',
+    hoverBorder: 'hover:border-amber-500/40',
+    hoverGlow: 'hover:shadow-[0_0_40px_rgba(245,158,11,0.07)]',
+    hoverGlowSm: 'hover:shadow-[0_0_30px_rgba(245,158,11,0.07)]',
+    hoverIcon: 'group-hover:text-amber-300',
+  },
 }
 
 export function getColors(color) {

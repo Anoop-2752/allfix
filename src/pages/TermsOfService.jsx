@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { usePageTitle } from '../hooks/usePageTitle'
+import SEO from '../components/SEO'
 
 function Section({ title, children }) {
   return (
@@ -16,6 +17,11 @@ export default function TermsOfService() {
 
   return (
     <div className="mx-auto max-w-3xl px-6 pb-24 pt-12">
+      <SEO
+        title="Terms of Service"
+        description="AllFix terms of service — rules and guidelines for using our free developer tools. Tools are provided as-is and outputs belong to you."
+        path="/terms"
+      />
       <button
         onClick={() => navigate(-1)}
         className="mb-8 text-xs text-zinc-600 transition-colors hover:text-zinc-400"

@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { usePageTitle } from '../hooks/usePageTitle'
+import SEO from '../components/SEO'
 
 function Section({ title, children }) {
   return (
@@ -16,6 +17,11 @@ export default function CookiePolicy() {
 
   return (
     <div className="mx-auto max-w-3xl px-6 pb-24 pt-12">
+      <SEO
+        title="Cookie Policy"
+        description="AllFix cookie policy — how we use cookies for ads and analytics. Learn how to manage and opt out of Google AdSense cookies."
+        path="/cookies"
+      />
       <button
         onClick={() => navigate(-1)}
         className="mb-8 text-xs text-zinc-600 transition-colors hover:text-zinc-400"

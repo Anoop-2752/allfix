@@ -4,6 +4,7 @@ import { ChevronRight, Construction, getIcon } from '../lib/icons'
 import { getColors } from '../lib/colors'
 import { getToolBySlug, getCategoryBySlug } from '../data/tools'
 import { usePageTitle } from '../hooks/usePageTitle'
+import SEO from '../components/SEO'
 
 // Lazy-loaded tool components — each becomes its own JS chunk
 const JsonFormatter     = lazy(() => import('../tools/developer/JsonFormatter'))
@@ -16,22 +17,72 @@ const WordCounter       = lazy(() => import('../tools/text/WordCounter'))
 const LoremIpsum        = lazy(() => import('../tools/text/LoremIpsum'))
 const MarkdownPreviewer = lazy(() => import('../tools/text/MarkdownPreviewer'))
 const CaseConverter     = lazy(() => import('../tools/text/CaseConverter'))
-const DiffChecker       = lazy(() => import('../tools/text/DiffChecker'))
-const FillerWordRemover = lazy(() => import('../tools/text/FillerWordRemover'))
+const DiffChecker            = lazy(() => import('../tools/text/DiffChecker'))
+const FillerWordRemover      = lazy(() => import('../tools/text/FillerWordRemover'))
+const AtsKeywordChecker      = lazy(() => import('../tools/career/AtsKeywordChecker'))
+const ResumeCharacterCounter = lazy(() => import('../tools/career/ResumeCharacterCounter'))
+const CoverLetterFillerChecker = lazy(() => import('../tools/career/CoverLetterFillerChecker'))
+const ActionVerbSuggester    = lazy(() => import('../tools/career/ActionVerbSuggester'))
+const JobApplicationTracker  = lazy(() => import('../tools/career/JobApplicationTracker'))
+const PdfMerger              = lazy(() => import('../tools/pdf/PdfMerger'))
+const PdfSplitter            = lazy(() => import('../tools/pdf/PdfSplitter'))
+const PdfToText              = lazy(() => import('../tools/pdf/PdfToText'))
+const PdfMetadataViewer      = lazy(() => import('../tools/pdf/PdfMetadataViewer'))
+const HrEmailTemplates            = lazy(() => import('../tools/hr/HrEmailTemplates'))
+const InterviewQuestionGenerator  = lazy(() => import('../tools/hr/InterviewQuestionGenerator'))
+const NoticePeriodCalculator      = lazy(() => import('../tools/hr/NoticePeriodCalculator'))
+const SalarySlipGenerator         = lazy(() => import('../tools/hr/SalarySlipGenerator'))
+const OfferLetterGenerator        = lazy(() => import('../tools/hr/OfferLetterGenerator'))
+const ExperienceLetterGenerator   = lazy(() => import('../tools/hr/ExperienceLetterGenerator'))
+const ResignationLetterGenerator  = lazy(() => import('../tools/hr/ResignationLetterGenerator'))
+const CtcBreakupCalculator        = lazy(() => import('../tools/hr/CtcBreakupCalculator'))
+const EmiCalculator               = lazy(() => import('../tools/finance/EmiCalculator'))
+const IncomeTaxCalculator         = lazy(() => import('../tools/finance/IncomeTaxCalculator'))
+const SipCalculator               = lazy(() => import('../tools/finance/SipCalculator'))
+const GstCalculator               = lazy(() => import('../tools/finance/GstCalculator'))
+const HraCalculator               = lazy(() => import('../tools/finance/HraCalculator'))
+const GratuityCalculator          = lazy(() => import('../tools/finance/GratuityCalculator'))
+const SalaryHikeCalculator        = lazy(() => import('../tools/finance/SalaryHikeCalculator'))
+const FdRdCalculator              = lazy(() => import('../tools/finance/FdRdCalculator'))
 
 const toolComponents = {
-  'json-formatter':     JsonFormatter,
-  'base64':             Base64,
-  'jwt-decoder':        JwtDecoder,
-  'uuid-generator':     UuidGenerator,
-  'timestamp-converter':TimestampConverter,
-  'url-encoder':        UrlEncoder,
-  'word-counter':       WordCounter,
-  'lorem-ipsum':        LoremIpsum,
-  'markdown-previewer': MarkdownPreviewer,
-  'case-converter':     CaseConverter,
-  'diff-checker':       DiffChecker,
-  'filler-word-remover':FillerWordRemover,
+  'json-formatter':           JsonFormatter,
+  'base64':                   Base64,
+  'jwt-decoder':              JwtDecoder,
+  'uuid-generator':           UuidGenerator,
+  'timestamp-converter':      TimestampConverter,
+  'url-encoder':              UrlEncoder,
+  'word-counter':             WordCounter,
+  'lorem-ipsum':              LoremIpsum,
+  'markdown-previewer':       MarkdownPreviewer,
+  'case-converter':           CaseConverter,
+  'diff-checker':             DiffChecker,
+  'filler-word-remover':      FillerWordRemover,
+  'ats-keyword-checker':      AtsKeywordChecker,
+  'resume-character-counter': ResumeCharacterCounter,
+  'cover-letter-filler-checker': CoverLetterFillerChecker,
+  'action-verb-suggester':    ActionVerbSuggester,
+  'job-application-tracker':  JobApplicationTracker,
+  'pdf-merger':               PdfMerger,
+  'pdf-splitter':             PdfSplitter,
+  'pdf-to-text':              PdfToText,
+  'pdf-metadata-viewer':      PdfMetadataViewer,
+  'hr-email-templates':           HrEmailTemplates,
+  'interview-question-generator': InterviewQuestionGenerator,
+  'notice-period-calculator':     NoticePeriodCalculator,
+  'salary-slip-generator':        SalarySlipGenerator,
+  'offer-letter-generator':       OfferLetterGenerator,
+  'experience-letter-generator':  ExperienceLetterGenerator,
+  'resignation-letter-generator': ResignationLetterGenerator,
+  'ctc-breakup-calculator':       CtcBreakupCalculator,
+  'emi-calculator':               EmiCalculator,
+  'income-tax-calculator':        IncomeTaxCalculator,
+  'sip-calculator':               SipCalculator,
+  'gst-calculator':               GstCalculator,
+  'hra-calculator':               HraCalculator,
+  'gratuity-calculator':          GratuityCalculator,
+  'salary-hike-calculator':       SalaryHikeCalculator,
+  'fd-rd-calculator':             FdRdCalculator,
 }
 
 function ToolIcon({ name, className }) {
@@ -105,6 +156,13 @@ export default function ToolPage() {
 
   return (
     <div className="mx-auto max-w-6xl px-6 pb-24 pt-8">
+      <SEO
+        title={`${tool.name} — Free Online Tool`}
+        description={`Free online ${tool.name.toLowerCase()}. ${tool.description} No signup required, works instantly in your browser.`}
+        keywords={`${tool.name.toLowerCase()}, free online ${tool.name.toLowerCase()}, ${tool.name} tool, ${category.name.toLowerCase()}`}
+        path={`/${category.slug}/${tool.slug}`}
+      />
+
       {/* Breadcrumb */}
       <nav className="mb-6 flex items-center gap-1.5 text-xs text-zinc-600">
         <button onClick={() => navigate('/')} className="transition-colors hover:text-zinc-300">

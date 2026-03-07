@@ -5,6 +5,11 @@ import {
   Braces, Binary, KeyRound, Fingerprint, Clock, Link,
   AlignLeft, FileText, Eye, CaseSensitive, GitCompare, Eraser,
   ArrowRight, Wrench, ChevronRight, Construction, Search,
+  Briefcase, ScanSearch, LetterText, FileWarning, Zap, ClipboardList,
+  FileType, Combine, Scissors, FileOutput, FileSearch,
+  Users, Mail, MessageSquare, CalendarClock, Receipt, FileCheck, UserCheck, LogOut,
+  Calculator,
+  IndianRupee, TrendingUp, Percent, Home, Award, ArrowUpRight, PiggyBank, Landmark, CreditCard,
 } from 'lucide-react'
 
 export {
@@ -12,6 +17,11 @@ export {
   Braces, Binary, KeyRound, Fingerprint, Clock, Link,
   AlignLeft, FileText, Eye, CaseSensitive, GitCompare, Eraser,
   ArrowRight, Wrench, ChevronRight, Construction, Search,
+  Briefcase, ScanSearch, LetterText, FileWarning, Zap, ClipboardList,
+  FileType, Combine, Scissors, FileOutput, FileSearch,
+  Users, Mail, MessageSquare, CalendarClock, Receipt, FileCheck, UserCheck, LogOut,
+  Calculator,
+  IndianRupee, TrendingUp, Percent, Home, Award, ArrowUpRight, PiggyBank, Landmark, CreditCard,
 }
 
 // Resolve a Lucide icon component by its string name.
@@ -21,6 +31,11 @@ const iconMap = {
   Braces, Binary, KeyRound, Fingerprint, Clock, Link,
   AlignLeft, FileText, Eye, CaseSensitive, GitCompare, Eraser,
   ArrowRight, Wrench, ChevronRight, Construction, Search,
+  Briefcase, ScanSearch, LetterText, FileWarning, Zap, ClipboardList,
+  FileType, Combine, Scissors, FileOutput, FileSearch,
+  Users, Mail, MessageSquare, CalendarClock, Receipt, FileCheck, UserCheck, LogOut,
+  Calculator,
+  IndianRupee, TrendingUp, Percent, Home, Award, ArrowUpRight, PiggyBank, Landmark, CreditCard,
 }
 
 export function getIcon(name) {

@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { usePageTitle } from '../hooks/usePageTitle'
+import SEO from '../components/SEO'
 
 function Section({ title, children }) {
   return (
@@ -16,6 +17,11 @@ export default function PrivacyPolicy() {
 
   return (
     <div className="mx-auto max-w-3xl px-6 pb-24 pt-12">
+      <SEO
+        title="Privacy Policy"
+        description="AllFix privacy policy — we don't collect personal data. All tools run client-side in your browser. Learn how Google AdSense and Vercel are used."
+        path="/privacy"
+      />
       <button
         onClick={() => navigate(-1)}
         className="mb-8 text-xs text-zinc-600 transition-colors hover:text-zinc-400"

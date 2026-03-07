@@ -3,6 +3,7 @@ import { ChevronRight, getIcon } from '../lib/icons'
 import { getColors } from '../lib/colors'
 import { getCategoryBySlug } from '../data/tools'
 import { usePageTitle } from '../hooks/usePageTitle'
+import SEO from '../components/SEO'
 import ToolCard from '../components/ToolCard'
 
 function CategoryIcon({ name, className }) {
@@ -41,6 +42,13 @@ export default function CategoryPage() {
 
   return (
     <div className="mx-auto max-w-6xl px-6 pb-24 pt-8">
+      <SEO
+        title={`${category.name} — Free Online Tools`}
+        description={`Free online ${category.name.toLowerCase()}. ${category.description} No signup, no install, works instantly in your browser.`}
+        keywords={`${category.name.toLowerCase()}, free online tools, browser tools, ${category.tools.map(t => t.name.toLowerCase()).join(', ')}`}
+        path={`/${category.slug}`}
+      />
+
       {/* Breadcrumb */}
       <nav className="mb-6 flex items-center gap-1.5 text-xs text-zinc-600">
         <button onClick={() => navigate('/')} className="transition-colors hover:text-zinc-300">
