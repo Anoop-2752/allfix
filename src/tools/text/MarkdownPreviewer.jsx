@@ -1,5 +1,6 @@
 import { useState, useMemo, useCallback } from 'react'
 import { marked } from 'marked'
+import DOMPurify from 'dompurify'
 
 // Configure marked — GFM (tables, strikethrough, etc.) + line breaks
 marked.use({ gfm: true, breaks: true })
@@ -50,7 +51,7 @@ export default function MarkdownPreviewer() {
   const [copied, setCopied]     = useState(false)
   const [view, setView]         = useState('split') // 'split' | 'editor' | 'preview'
 
-  const html = useMemo(() => marked.parse(markdown), [markdown])
+  const html = useMemo(() => DOMPurify.sanitize(marked.parse(markdown)), [markdown])
 
   const wordCount = markdown.trim() ? markdown.trim().split(/\s+/).length : 0
   const lineCount = markdown.split('\n').length

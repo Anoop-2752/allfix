@@ -7,6 +7,7 @@ import { getColors } from '../lib/colors'
 function ToolIcon({ name, className }) {
   const Icon = getIcon(name)
   if (!Icon) return null
+  // eslint-disable-next-line react-hooks/static-components
   return <Icon className={className} size={14} />
 }
 
@@ -25,9 +26,10 @@ export default function SearchModal({ open, onClose }) {
       ).slice(0, 8)
     : []
 
-  // Focus input when modal opens
+  // Focus input when modal opens; reset query when reopened
   useEffect(() => {
     if (open) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setQuery('')
       setTimeout(() => inputRef.current?.focus(), 50)
     }

@@ -5,7 +5,7 @@ function toWords(str) {
   return str
     .replace(/([a-z])([A-Z])/g, '$1 $2')         // camelCase → camel Case
     .replace(/([A-Z]+)([A-Z][a-z])/g, '$1 $2')   // ABCDef → ABC Def
-    .replace(/[_\-]+/g, ' ')                       // snake/kebab → spaces
+    .replace(/[_-]+/g, ' ')                        // snake/kebab → spaces
     .split(/\s+/)
     .filter(Boolean)
 }

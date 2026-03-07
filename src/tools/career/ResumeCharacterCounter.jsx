@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useState } from 'react'
 
 const ATS_LIMITS = {
   bullet: { chars: 200, label: '200 chars recommended per bullet' },
@@ -54,11 +54,6 @@ export default function ResumeCharacterCounter() {
     totalWords === 0 ? 'empty'
     : totalWords <= 700 ? 'good'
     : 'long'
-
-  const handleCopy = useCallback(async () => {
-    if (!input) return
-    await navigator.clipboard.writeText(input).catch(() => {})
-  }, [input])
 
   return (
     <div className="flex flex-col gap-6">

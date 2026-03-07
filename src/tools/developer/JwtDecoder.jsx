@@ -76,6 +76,7 @@ export default function JwtDecoder() {
 
   const alg       = decoded?.header?.alg
   const exp       = decoded?.payload?.exp
+  // eslint-disable-next-line react-hooks/purity
   const isExpired = exp && exp < Math.floor(Date.now() / 1000)
 
   const stdClaims = [

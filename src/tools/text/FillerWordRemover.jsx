@@ -31,7 +31,6 @@ export default function FillerWordRemover() {
   const [input, setInput]     = useState('')
   const [view, setView]       = useState('highlight') // 'highlight' | 'cleaned'
   const [copied, setCopied]   = useState(false)
-  const [cleaned, setCleaned] = useState(false) // true once user clicks Clean
 
   const tokens = useMemo(() => tokenize(input, DEFAULT_FILLERS), [input])
 
@@ -72,7 +71,7 @@ export default function FillerWordRemover() {
           <label className="text-xs font-medium uppercase tracking-widest text-zinc-500">Input</label>
           {input && (
             <button
-              onClick={() => { setInput(''); setCleaned(false) }}
+              onClick={() => setInput('')}
               className="text-xs text-zinc-600 transition-colors hover:text-red-400"
             >
               Clear
@@ -82,7 +81,7 @@ export default function FillerWordRemover() {
 
         <textarea
           value={input}
-          onChange={(e) => { setInput(e.target.value); setCleaned(false) }}
+          onChange={(e) => setInput(e.target.value)}
           placeholder={'Paste your text here and filler words will be highlighted automatically…\n\nExample: "I basically just, um, wanted to literally say that…"'}
           className="h-72 w-full resize-none rounded-xl border border-[#2a2a2a] bg-[#141414] p-4 text-sm leading-relaxed text-zinc-200 placeholder:text-zinc-700 focus:border-indigo-500/50 focus:outline-none focus:ring-1 focus:ring-indigo-500/30 lg:h-80"
         />

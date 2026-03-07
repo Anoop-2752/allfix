@@ -1,17 +1,10 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 const STORAGE_KEY = 'allfix_cookie_consent'
 
 export default function CookieBanner() {
-  const [visible, setVisible] = useState(false)
-
-  useEffect(() => {
-    // Show only if user hasn't accepted yet
-    if (!localStorage.getItem(STORAGE_KEY)) {
-      setVisible(true)
-    }
-  }, [])
+  const [visible, setVisible] = useState(() => !localStorage.getItem(STORAGE_KEY))
 
   function accept() {
     localStorage.setItem(STORAGE_KEY, 'accepted')

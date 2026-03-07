@@ -5,6 +5,7 @@ import { getColors } from '../lib/colors'
 function CategoryIcon({ name, className }) {
   const Icon = getIcon(name)
   if (!Icon) return null
+  // eslint-disable-next-line react-hooks/static-components
   return <Icon className={className} size={20} />
 }
 

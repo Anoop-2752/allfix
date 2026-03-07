@@ -4,11 +4,6 @@ function cur(n) {
   return Number(n || 0).toLocaleString('en-IN', { maximumFractionDigits: 0 })
 }
 
-function pct(val, total) {
-  if (!total) return '—'
-  return ((val / total) * 100).toFixed(1) + '%'
-}
-
 export default function CtcBreakupCalculator() {
   const [ctc, setCtc]             = useState('')
   const [basicPct, setBasicPct]   = useState(40)
@@ -170,7 +165,7 @@ export default function CtcBreakupCalculator() {
   )
 }
 
-function BreakupTable({ title, rows, total, totalCtc, note, accent }) {
+function BreakupTable({ title, rows, total, note, accent }) {
   return (
     <div className="rounded-xl border border-[#2a2a2a] bg-[#141414] overflow-hidden">
       <div className="border-b border-[#2a2a2a] px-4 py-3">

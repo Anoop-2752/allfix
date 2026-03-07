@@ -1,5 +1,9 @@
 import { useState } from 'react'
 
+function escapeHtml(str) {
+  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+}
+
 export default function ResignationLetterGenerator() {
   const today = new Date().toISOString().split('T')[0]
   const [f, setF] = useState({
@@ -70,7 +74,7 @@ ${f.companyName || '[Company Name]'}`
     win.document.write(`<html><head><title>Resignation Letter</title><style>
       body{font-family:Arial,sans-serif;font-size:13px;color:#111;margin:40px;line-height:1.7}
       pre{font-family:inherit;white-space:pre-wrap;margin:0}
-    </style></head><body><pre>${letter}</pre></body></html>`)
+    </style></head><body><pre>${escapeHtml(letter)}</pre></body></html>`)
     win.document.close()
     win.print()
   }
