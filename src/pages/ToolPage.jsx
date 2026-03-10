@@ -163,29 +163,18 @@ export default function ToolPage() {
           Home
         </button>
         <ChevronRight size={11} className="text-zinc-700" />
-        <button onClick={() => navigate(`/${category.slug}`)} className="transition-colors hover:text-zinc-300">
-          {category.name}
-        </button>
-        <ChevronRight size={11} className="text-zinc-700" />
         <span className="text-zinc-400">{tool.name}</span>
       </nav>
 
-      {/* Tool header — compact inline layout */}
+      {/* Tool header */}
       <header className="mb-8">
-        <div className="mb-3 flex items-center gap-3">
-          <div className={`flex h-9 w-9 items-center justify-center rounded-xl ${colors.iconBg}`}>
-            <ToolIcon name={tool.icon} className={colors.iconColor} />
-          </div>
-          <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${colors.badge}`}>
-            {category.name}
-          </span>
+        <div className={`mb-4 flex h-10 w-10 items-center justify-center rounded-xl ${colors.iconBg}`}>
+          <ToolIcon name={tool.icon} className={colors.iconColor} />
         </div>
         <h1 className="mb-1.5 text-3xl font-bold tracking-tight text-white">{tool.name}</h1>
+        <div className="mb-6 h-px bg-[#1a1a1a]" />
         <p className="text-sm text-zinc-500">{tool.description}</p>
       </header>
-
-      {/* Divider */}
-      <div className="mb-7 h-px bg-[#1a1a1a]" />
 
       {/* Tool content */}
       {ToolComponent ? (

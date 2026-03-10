@@ -10,7 +10,7 @@ function ToolIcon({ name, className }) {
   return <Icon className={className} size={16} />
 }
 
-export default function ToolCard({ tool, categoryColor = 'blue' }) {
+export default function ToolCard({ tool, categoryColor = 'blue', showCategory = true }) {
   const navigate = useNavigate()
   const colors = getColors(categoryColor)
   const cat = getCategoryBySlug(tool.category)
@@ -26,8 +26,8 @@ export default function ToolCard({ tool, categoryColor = 'blue' }) {
         colors.hoverGlowSm,
       ].join(' ')}
     >
-      {/* Category badge */}
-      {cat && (
+      {/* Category badge — only in search results */}
+      {showCategory && cat && (
         <div className="mb-2.5">
           <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${colors.badge}`}>
             {cat.name}
