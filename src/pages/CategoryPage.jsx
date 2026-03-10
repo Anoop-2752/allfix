@@ -15,7 +15,7 @@ function CategoryIcon({ name, className }) {
 
 function NotFound({ onBack }) {
   return (
-    <div className="mx-auto max-w-6xl px-6 py-24 text-center">
+    <div className="mx-auto max-w-7xl px-6 py-24 text-center">
       <p className="mb-2 text-4xl">🔍</p>
       <h1 className="mb-3 text-2xl font-semibold text-white">Category not found</h1>
       <p className="mb-8 text-sm text-zinc-500">
@@ -42,7 +42,7 @@ export default function CategoryPage() {
   if (!category) return <NotFound onBack={() => navigate('/')} />
 
   return (
-    <div className="mx-auto max-w-6xl px-6 pb-24 pt-8">
+    <div className="mx-auto max-w-7xl px-6 pb-24 pt-8">
       <SEO
         title={`${category.name} — Free Online Tools`}
         description={`Free online ${category.name.toLowerCase()}. ${category.description} No signup, no install, works instantly in your browser.`}

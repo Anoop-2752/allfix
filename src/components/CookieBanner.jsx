@@ -15,7 +15,7 @@ export default function CookieBanner() {
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-[#2a2a2a] bg-[#111111]/95 backdrop-blur-md">
-      <div className="mx-auto flex max-w-6xl flex-col items-start gap-4 px-6 py-4 sm:flex-row sm:items-center sm:justify-between">
+      <div className="mx-auto flex max-w-7xl flex-col items-start gap-4 px-6 py-4 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-sm leading-relaxed text-zinc-400">
           We use cookies for ads and analytics. By using QuickKit you accept our{' '}
           <Link

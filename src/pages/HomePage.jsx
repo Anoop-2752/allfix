@@ -59,7 +59,7 @@ export default function HomePage() {
   const visibleCategories = activeTab === 'all' ? categories : categories.filter((c) => c.slug === activeTab)
 
   return (
-    <div className="mx-auto max-w-6xl px-6 pb-24">
+    <div className="mx-auto max-w-7xl px-6 pb-24">
       <SEO
         title="Free Online Tools — Developer, HR, Finance, PDF & More"
         description={`QuickKit — ${allTools.length}+ free online tools for developers, HR managers, job seekers, and finance. EMI calculator, GST, salary slip, PDF merger, ATS checker and more. No signup, runs in your browser.`}

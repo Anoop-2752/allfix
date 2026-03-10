@@ -120,7 +120,7 @@ function ToolIcon({ name, className }) {
 
 function NotFound({ onBack }) {
   return (
-    <div className="mx-auto max-w-6xl px-6 py-24 text-center">
+    <div className="mx-auto max-w-7xl px-6 py-24 text-center">
       <p className="mb-2 text-4xl">🔍</p>
       <h1 className="mb-3 text-2xl font-semibold text-white">Tool not found</h1>
       <p className="mb-8 text-sm text-zinc-500">
@@ -175,7 +175,7 @@ export default function ToolPage() {
   const ToolComponent = toolComponents[tool.slug]
 
   return (
-    <div className="mx-auto max-w-6xl px-6 pb-24 pt-8">
+    <div className="mx-auto max-w-7xl px-6 pb-24 pt-8">
       <SEO
         title={`${tool.name} — Free Online Tool`}
         description={`Free online ${tool.name.toLowerCase()}. ${tool.description} No signup required, works instantly in your browser.`}
