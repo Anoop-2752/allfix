@@ -229,6 +229,14 @@ export const categories = [
         icon: 'ClipboardList',
         category: 'career',
       },
+      {
+        id: 'cover-letter-generator',
+        name: 'Cover Letter Generator',
+        slug: 'cover-letter-generator',
+        description: 'Generate a professional cover letter in seconds — fill in your details and get a ready-to-send letter.',
+        icon: 'PenLine',
+        category: 'career',
+      },
     ],
   },
   {

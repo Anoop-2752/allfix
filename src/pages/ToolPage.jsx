@@ -24,6 +24,7 @@ const ResumeCharacterCounter = lazy(() => import('../tools/career/ResumeCharacte
 const CoverLetterFillerChecker = lazy(() => import('../tools/career/CoverLetterFillerChecker'))
 const ActionVerbSuggester    = lazy(() => import('../tools/career/ActionVerbSuggester'))
 const JobApplicationTracker  = lazy(() => import('../tools/career/JobApplicationTracker'))
+const CoverLetterGenerator   = lazy(() => import('../tools/career/CoverLetterGenerator'))
 const PdfMerger              = lazy(() => import('../tools/pdf/PdfMerger'))
 const PdfSplitter            = lazy(() => import('../tools/pdf/PdfSplitter'))
 const PdfToText              = lazy(() => import('../tools/pdf/PdfToText'))
@@ -70,6 +71,7 @@ const toolComponents = {
   'cover-letter-filler-checker': CoverLetterFillerChecker,
   'action-verb-suggester':    ActionVerbSuggester,
   'job-application-tracker':  JobApplicationTracker,
+  'cover-letter-generator':   CoverLetterGenerator,
   'pdf-merger':               PdfMerger,
   'pdf-splitter':             PdfSplitter,
   'pdf-to-text':              PdfToText,

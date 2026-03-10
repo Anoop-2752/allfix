@@ -12,6 +12,7 @@ import {
   IndianRupee, TrendingUp, Percent, Home, Award, ArrowUpRight, PiggyBank, Landmark, CreditCard,
   ImageIcon, ImageDown, Minimize2,
   ArrowLeftRight, Pipette, ScanLine,
+  PenLine,
 } from 'lucide-react'
 
 export {
@@ -26,6 +27,7 @@ export {
   IndianRupee, TrendingUp, Percent, Home, Award, ArrowUpRight, PiggyBank, Landmark, CreditCard,
   ImageIcon, ImageDown, Minimize2,
   ArrowLeftRight, Pipette, ScanLine,
+  PenLine,
 }
 
 // Resolve a Lucide icon component by its string name.
@@ -42,6 +44,7 @@ const iconMap = {
   IndianRupee, TrendingUp, Percent, Home, Award, ArrowUpRight, PiggyBank, Landmark, CreditCard,
   ImageIcon, ImageDown, Minimize2,
   ArrowLeftRight, Pipette, ScanLine,
+  PenLine,
 }
 
 export function getIcon(name) {
