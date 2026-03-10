@@ -203,7 +203,16 @@ export default function AtsKeywordChecker() {
       ? Math.round((matched.length / jdKeywords.length) * 100)
       : 0
 
-    setResult({ matched, missing, score, total: jdKeywords.length })
+    const verdict =
+      score >= 70 ? { label: 'Strong Match',   color: 'emerald', tip: 'Your resume aligns well with this role. Apply with confidence.' }
+    : score >= 40 ? { label: 'Partial Match',  color: 'amber',   tip: 'Some gaps exist. Add the missing keywords naturally where relevant.' }
+    :               { label: 'Low Match',       color: 'red',     tip: 'Significant mismatch. Tailor your resume before applying.' }
+
+    const improvements = missing.slice(0, 5).map(kw =>
+      `Add "${kw}" to your resume where your experience supports it.`
+    )
+
+    setResult({ matched, missing, score, total: jdKeywords.length, verdict, improvements })
   }
 
   function handleSample() {
@@ -308,25 +317,20 @@ export default function AtsKeywordChecker() {
       {result && (
         <div className="flex flex-col gap-4">
 
-          {/* Score */}
-          <div className="flex items-center gap-4 rounded-xl border border-[#2a2a2a] bg-[#141414] p-5">
-            <div className="flex flex-col items-center">
+          {/* Score + Verdict */}
+          <div className="flex items-center gap-5 rounded-xl border border-[#2a2a2a] bg-[#141414] p-5">
+            <div className="flex flex-col items-center gap-1">
               <span className={`text-4xl font-bold ${scoreColor}`}>{result.score}%</span>
-              <span className="mt-1 text-xs text-zinc-600">match score</span>
+              <span className="text-xs text-zinc-600">match score</span>
             </div>
-            <div className="h-12 w-px bg-[#2a2a2a]" />
-            <div className="flex gap-6 text-sm">
-              <div>
-                <span className="text-emerald-400 font-semibold">{result.matched.length}</span>
-                <span className="ml-1.5 text-zinc-600">matched</span>
-              </div>
-              <div>
-                <span className="text-red-400 font-semibold">{result.missing.length}</span>
-                <span className="ml-1.5 text-zinc-600">missing</span>
-              </div>
-              <div>
-                <span className="text-zinc-300 font-semibold">{result.total}</span>
-                <span className="ml-1.5 text-zinc-600">total keywords</span>
+            <div className="h-14 w-px bg-[#2a2a2a]" />
+            <div className="flex flex-col gap-1.5">
+              <span className={`text-sm font-semibold ${scoreColor}`}>{result.verdict.label}</span>
+              <p className="text-xs text-zinc-500 leading-relaxed">{result.verdict.tip}</p>
+              <div className="flex gap-5 text-sm mt-0.5">
+                <span><span className="font-semibold text-emerald-400">{result.matched.length}</span><span className="ml-1 text-zinc-600">matched</span></span>
+                <span><span className="font-semibold text-red-400">{result.missing.length}</span><span className="ml-1 text-zinc-600">missing</span></span>
+                <span><span className="font-semibold text-zinc-300">{result.total}</span><span className="ml-1 text-zinc-600">total</span></span>
               </div>
             </div>
           </div>
@@ -340,6 +344,23 @@ export default function AtsKeywordChecker() {
               style={{ width: `${result.score}%` }}
             />
           </div>
+
+          {/* Improvement tips */}
+          {result.improvements.length > 0 && (
+            <div className="rounded-xl border border-indigo-500/20 bg-[#141414] p-4">
+              <h3 className="mb-3 text-xs font-semibold uppercase tracking-widest text-indigo-400">
+                Top Improvements
+              </h3>
+              <ul className="flex flex-col gap-2">
+                {result.improvements.map((tip, i) => (
+                  <li key={i} className="flex items-start gap-2 text-xs text-zinc-400">
+                    <span className="mt-0.5 text-indigo-500">→</span>
+                    {tip}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
 
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
             {/* Missing keywords */}
@@ -376,7 +397,7 @@ export default function AtsKeywordChecker() {
           </div>
 
           <p className="text-xs text-zinc-700">
-            Tip: aim for 70%+ match. Add missing keywords naturally into your resume where relevant.
+            Aim for 70%+ match. Add missing keywords naturally — only where your actual experience supports it.
           </p>
         </div>
       )}
