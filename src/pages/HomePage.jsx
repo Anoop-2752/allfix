@@ -62,7 +62,7 @@ export default function HomePage() {
     <div className="mx-auto max-w-7xl px-6 pb-24">
       <SEO
         title="Free Online Tools — Developer, HR, Finance, PDF & More"
-        description={`QuickKit — ${allTools.length}+ free online tools for developers, HR managers, job seekers, and finance. EMI calculator, GST, salary slip, PDF merger, ATS checker and more. No signup, runs in your browser.`}
+        description={`QuickKit — ${allTools.length}+ free online tools for developers, HR, finance, career, SEO, image, PDF, and text. No signup, runs in your browser.`}
         keywords="free online tools, EMI calculator, GST calculator, salary slip generator, PDF merger, ATS keyword checker, income tax calculator, HR tools, developer tools"
         path="/"
       />
@@ -93,7 +93,7 @@ export default function HomePage() {
         </h1>
 
         <p className="mx-auto mt-4 max-w-xl text-base text-zinc-400 sm:text-lg">
-          Free tools for developers, HR teams, job seekers, and finance — all running in your browser. No account, no ads, no cost.
+          Free tools for developers, HR, finance, career, SEO, and more — all in your browser. No account, no ads, no cost.
         </p>
 
         {/* Search bar */}
