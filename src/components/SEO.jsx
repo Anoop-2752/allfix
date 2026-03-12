@@ -30,13 +30,13 @@ export default function SEO({ title, description, keywords, path }) {
       <meta property="og:type" content="website" />
       <meta property="og:url" content={canonical} />
       <meta property="og:site_name" content="QuickKit" />
-      <meta property="og:image" content={`${BASE_URL}/og-image.svg`} />
+      <meta property="og:image" content={`${BASE_URL}/og-image.png`} />
 
       {/* Twitter Card */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={desc} />
-      <meta name="twitter:image" content={`${BASE_URL}/og-image.svg`} />
+      <meta name="twitter:image" content={`${BASE_URL}/og-image.png`} />
     </Helmet>
   )
 }

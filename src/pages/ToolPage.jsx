@@ -3,8 +3,12 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { ChevronRight, Construction, getIcon } from '../lib/icons'
 import { getColors } from '../lib/colors'
 import { getToolBySlug, getCategoryBySlug } from '../data/tools'
+import { toolSeoData } from '../data/toolSeoData'
 import { usePageTitle } from '../hooks/usePageTitle'
 import SEO from '../components/SEO'
+import JsonLd from '../components/JsonLd'
+import FaqAccordion from '../components/FaqAccordion'
+import RelatedTools from '../components/RelatedTools'
 
 // Lazy-loaded tool components — each becomes its own JS chunk
 const JsonFormatter     = lazy(() => import('../tools/developer/JsonFormatter'))
@@ -173,20 +177,31 @@ export default function ToolPage() {
 
   const colors        = getColors(category.color)
   const ToolComponent = toolComponents[tool.slug]
+  const seoData       = toolSeoData[tool.slug]
+
+  const seoDescription = seoData?.longDescription
+    || `Free online ${tool.name.toLowerCase()}. ${tool.description} No signup required, works instantly in your browser.`
+  const seoKeywords = seoData?.keywords?.join(', ')
+    || `${tool.name.toLowerCase()}, free online ${tool.name.toLowerCase()}, ${tool.name} tool, ${category.name.toLowerCase()}`
 
   return (
     <div className="mx-auto max-w-7xl px-6 pb-24 pt-8">
       <SEO
         title={`${tool.name} — Free Online Tool`}
-        description={`Free online ${tool.name.toLowerCase()}. ${tool.description} No signup required, works instantly in your browser.`}
-        keywords={`${tool.name.toLowerCase()}, free online ${tool.name.toLowerCase()}, ${tool.name} tool, ${category.name.toLowerCase()}`}
+        description={seoDescription}
+        keywords={seoKeywords}
         path={`/${category.slug}/${tool.slug}`}
       />
+      <JsonLd tool={tool} category={category} seoData={seoData} />
 
       {/* Breadcrumb */}
       <nav className="mb-6 flex items-center gap-1.5 text-xs text-zinc-600">
         <button onClick={() => navigate('/')} className="transition-colors hover:text-zinc-300">
           Home
+        </button>
+        <ChevronRight size={11} className="text-zinc-700" />
+        <button onClick={() => navigate(`/${category.slug}`)} className="transition-colors hover:text-zinc-300">
+          {category.name}
         </button>
         <ChevronRight size={11} className="text-zinc-700" />
         <span className="text-zinc-400">{tool.name}</span>
@@ -210,6 +225,12 @@ export default function ToolPage() {
       ) : (
         <ComingSoon toolName={tool.name} />
       )}
+
+      {/* FAQ section */}
+      {seoData?.faqs && <FaqAccordion faqs={seoData.faqs} />}
+
+      {/* Related tools */}
+      <RelatedTools category={category} currentToolSlug={tool.slug} />
 
     </div>
   )
