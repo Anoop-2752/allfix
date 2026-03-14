@@ -1,9 +1,8 @@
-import { lazy, Suspense } from 'react'
+import { lazy, Suspense, useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { ChevronRight, Construction, getIcon } from '../lib/icons'
 import { getColors } from '../lib/colors'
 import { getToolBySlug, getCategoryBySlug } from '../data/tools'
-import { toolSeoData } from '../data/toolSeoData'
 import { usePageTitle } from '../hooks/usePageTitle'
 import SEO from '../components/SEO'
 import JsonLd from '../components/JsonLd'
@@ -184,6 +183,14 @@ export default function ToolPage() {
   const tool     = getToolBySlug(categorySlug, toolSlug)
   const category = getCategoryBySlug(categorySlug)
 
+  const [seoData, setSeoData] = useState(null)
+
+  useEffect(() => {
+    import(`../data/seo/${categorySlug}.js`)
+      .then(m => setSeoData(m.default[tool?.slug] ?? null))
+      .catch(() => setSeoData(null))
+  }, [categorySlug, tool?.slug])
+
   usePageTitle(tool?.name)
 
   if (!tool || !category) {
@@ -192,7 +199,6 @@ export default function ToolPage() {
 
   const colors        = getColors(category.color)
   const ToolComponent = toolComponents[tool.slug]
-  const seoData       = toolSeoData[tool.slug]
 
   const seoDescription = seoData?.longDescription
     || `Free online ${tool.name.toLowerCase()}. ${tool.description} No signup required, works instantly in your browser.`
